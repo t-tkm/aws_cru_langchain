@@ -6,6 +6,9 @@ This project uses LLM and LangChain to implement natural language SQL for AWS Co
 - [Introducing the LangChain integration](https://cube.dev/blog/introducing-the-langchain-integration)
 - https://github.com/cube-js/cube/tree/master/examples/langchain
 
+## System
+![system](https://raw.githubusercontent.com/t-tkm/blog_images/main/2023/aws_cost_usage_report3/img1.png)
+
 ## Getting Started
 ### Cube Core起動
 「[AWS Cost Usage Reportの可視化(2) -ヘッドレスBIツールCubeを試してみる](https://t-tkm.github.io/blog/posts/2023/09/aws_cost_usage_report2/)」のStep1を参考にする。
