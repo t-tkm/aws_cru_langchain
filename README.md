@@ -1,6 +1,11 @@
 # aws_cru_langchain
 This project uses LLM and LangChain to implement natural language SQL for AWS Cost and Usage Reports (CUR).
 
+## 参考サイト
+コードは、こちらのサイトがベース(本家)になります。
+- [Introducing the LangChain integration](https://cube.dev/blog/introducing-the-langchain-integration)
+- https://github.com/cube-js/cube/tree/master/examples/langchain
+
 ## Getting Started
 ### Cube Core起動
 「[AWS Cost Usage Reportの可視化(2) -ヘッドレスBIツールCubeを試してみる](https://t-tkm.github.io/blog/posts/2023/09/aws_cost_usage_report2/)」のStep1を参考にする。
