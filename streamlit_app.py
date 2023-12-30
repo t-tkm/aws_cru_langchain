@@ -21,6 +21,7 @@ from utils import (
 )
 
 load_dotenv()
+embeddings = OpenAIEmbeddings()
 
 def ingest_cube_meta():
     security_context = {}
@@ -29,14 +30,12 @@ def ingest_cube_meta():
     loader = CubeSemanticLoader(os.environ["CUBE_API_URL"], token)
     documents = loader.load()
 
-    embeddings = OpenAIEmbeddings()
     vectorstore = FAISS.from_documents(documents, embeddings)
 
     # Save vectorstore
-    with open("vectorstore.pkl", "wb") as f:
-        pickle.dump(vectorstore, f)
-        
-if not Path("vectorstore.pkl").exists():
+    vectorstore.save_local("./vectorstore")
+
+if not Path("vectorstore").exists():
     with st.spinner('Loading context from Cube API...'):
         ingest_cube_meta();
 
@@ -44,18 +43,7 @@ llm = OpenAI(
     temperature=0, openai_api_key=os.environ.get("OPENAI_API_KEY"), verbose=True
 )
 
-st.title("Cube and LangChain demo 🤖🚀")
-
-multi = '''
-Follow [this tutorial on Github](https://github.com/cube-js/cube/tree/master/examples/langchain) to clone this project and run it locally. 
-
-You can use these sample questions to quickly test the demo --
-* How many orders?
-* How many completed orders?
-* What are top selling product categories?
-* What product category drives the highest average order value?
-'''
-st.markdown(multi)
+st.title("Cube and LangChain demo")
 
 question = st.text_input(
     "Your question: ", placeholder="Ask me anything ...", key="input"
@@ -63,11 +51,11 @@ question = st.text_input(
 
 if st.button("Submit", type="primary"):
     check_input(question)
-    if not Path("vectorstore.pkl").exists():
-        st.warning("vectorstore.pkl does not exist.")
-    with open("vectorstore.pkl", "rb") as f:
-        vectorstore = pickle.load(f)
-
+    if not Path("vectorstore").exists():
+        st.warning("vectorstore does not exist.")
+    else:
+        vectorstore = FAISS.load_local("./vectorstore", embeddings)
+    
     # log("Quering vectorstore and building the prompt...")
 
     docs = vectorstore.similarity_search(question)

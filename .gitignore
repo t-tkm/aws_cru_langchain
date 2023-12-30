@@ -1,7 +1,9 @@
 /.idea
 /.vscode
 /.DS_Store
+/.cubestore
+/__pycache__
+/model
+/vectorstore
 .env
-.cubestore
-/model/
-__pycache__
+vectorestore.pkl
